@@ -1361,10 +1361,10 @@ public class RedisCache {
 
     @Value("${redis.addr:127.0.0.1}")
     public void setADDR(String ADDR) {
-        ADDR = ADDR;
+        this.ADDR = ADDR;
     }
 
-    @Value("${redis.port:6379}")
+    @Value("${redis.port}")
     public void setPORT(int PORT) {
         PORT = PORT;
     }

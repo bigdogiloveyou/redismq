@@ -58,6 +58,10 @@ public class RedisQueue {
         return this;
     }
 
+    /**
+     * 虽然方法众多，但就是get跟set方法常用
+     * @return
+     */
     protected String get() {
         return RedisCache.get(topicPrefix, cacheType, key());
     }
@@ -82,6 +86,12 @@ public class RedisQueue {
         return RedisCache.zadd(topicPrefix, cacheType, key(), score, member);
     }
 
+    /**
+     * 虽然方法多，但就是get跟set方法常用
+     * @param value
+     * @param expireSeconds
+     * @return
+     */
     protected String set(String value, int expireSeconds) {
         return RedisCache.set(topicPrefix, cacheType, key(), value, expireSeconds);
     }
