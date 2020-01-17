@@ -12,11 +12,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import java.util.*;
 
 
 /**
- * @author LJ
+ * @author xushu
  * @ClassName: SchedulingConfig
  * @Description: 定时任务 实例
  * @date 2018年3月8日 下午2:58:01
