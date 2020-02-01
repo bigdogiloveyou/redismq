@@ -1,10 +1,13 @@
 package com.redis.mq.mymq;
 
 import com.alibaba.fastjson.JSON;
-import com.redis.mq.utils.UtilCompare;
+
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author: xushu
@@ -69,7 +72,7 @@ public class Consumer {
                 redisTransaction.watch(subscribersRedisQueue);
                 if (unreadMessages() > 0) {
                     String message = read();
-                    if (UtilCompare.isEmpty(goNext(redisTransaction))) {
+                    if (CollectionUtils.isEmpty(goNext(redisTransaction))) {
                         continue;
                     }
                     if (message == null) {
@@ -99,7 +102,7 @@ public class Consumer {
      */
     private int getLastReadMessage() {
         String lastMessageRead = subscribersRedisQueue.get();
-        if (UtilCompare.isEmpty(lastMessageRead)) {
+        if (StringUtils.isEmpty(lastMessageRead)) {
             int lowest = getTopicSize() - 1;
             subscribersRedisQueue.set(String.valueOf(lowest), DEFALUT_EXPIRETIME);
             return lowest;

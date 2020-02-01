@@ -5,7 +5,6 @@ import com.redis.mq.mymq.Consumer;
 import com.redis.mq.mymq.Producer;
 import com.redis.mq.mymq.RedisMessageModel;
 import com.redis.mq.utils.RedisCache;
-import com.redis.mq.utils.UtilLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -34,22 +33,22 @@ public class SchedulingConfig {
 
     @Scheduled(fixedDelay = PULL_FIXED_DELAY)
     public void consumer() {
-        UtilLogger.debug(LOGGER, "consumer job is start");
+        LOGGER.debug("consumer job is start");
         Consumer consumer = new Consumer("xushu", RedisCache.getDefaultKeyPrefix());
         consumer.consume(message -> {
             System.out.println("我是消费者：" + message.getContent());
         });
-        UtilLogger.debug(LOGGER, "consumer job is end");
+        LOGGER.debug("consumer job is end");
     }
 
     @Scheduled(fixedDelay = PULL_FIXED_DELAY)
     public void produce() {
-        UtilLogger.debug(LOGGER, "producer job is start");
+        LOGGER.debug("producer job is start");
         Producer producer = new Producer("xushu");
         RedisMessageModel messageModel = new RedisMessageModel();
         messageModel.setContent("gggggggggg");
         producer.publish(messageModel);
-        UtilLogger.debug(LOGGER, "consumer job is end");
+        LOGGER.debug("consumer job is end");
     }
 
 }

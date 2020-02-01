@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.CollectionUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -625,7 +626,7 @@ public class RedisCache {
                 Thread.sleep(10L);
             }
         } catch (Exception var9) {
-            UtilLogger.errorByFormat(log, "redis加锁失败", new Object[]{var9});
+            log.error("redis加锁失败", new Object[]{var9});
         } finally {
             if (null != jedis) {
                 jedis.close();
@@ -645,7 +646,7 @@ public class RedisCache {
             jedis.del(key);
             result = true;
         } catch (Exception var7) {
-            UtilLogger.errorByFormat(log, "redis解锁失败", new Object[]{var7});
+            log.error("redis解锁失败", new Object[]{var7});
         } finally {
             if (null != jedis) {
                 jedis.close();
@@ -1308,7 +1309,7 @@ public class RedisCache {
             jedis = getJedis();
             if (null != jedis) {
                 List<String> time = jedis.time();
-                if (UtilCompare.isNotEmpty(time) && time.size() >= 2) {
+                if (!CollectionUtils.isEmpty(time) && time.size() >= 2) {
                     Long second = Long.parseLong((String)time.get(0));
                     Long microSecond = Long.parseLong((String)time.get(1));
                     Long currentTimeMillis = second * 1000L + microSecond / 1000L;

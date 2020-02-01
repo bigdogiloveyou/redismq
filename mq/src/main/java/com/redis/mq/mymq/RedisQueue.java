@@ -2,8 +2,10 @@ package com.redis.mq.mymq;
 
 
 import com.redis.mq.utils.RedisCache;
-import com.redis.mq.utils.UtilCompare;
+
 import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
 import redis.clients.jedis.Response;
 import redis.clients.jedis.Tuple;
 
@@ -37,10 +39,10 @@ public class RedisQueue {
     }
 
     private String key() {
-        if (!UtilCompare.isEmpty(key)) {
+        if (StringUtils.isNotEmpty(key)) {
             return key;
         }
-        if (UtilCompare.isEmpty(sb)) {
+        if (StringUtils.isEmpty(sb)) {
             return REDIS_KEY;
         }
         String generatedKey = sb;
